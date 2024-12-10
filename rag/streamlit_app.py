@@ -61,16 +61,15 @@ def history(type):
         st.chat_message(message['role']).write(message['content'])
 if chat_type =='Data Science Ai Assitant':
     st.subheader('Data Science AI assitant bot')
-    prompt = """you are a helpful ai assistant. 
+    prompt = """you are a helpful smart ai assistant. You are expert in data sceience.
+    Your name is jarvis.
     You resolve the doubts for the students regarding Data SCience. 
+    
 
     In case, if the user ask non related queris then you need to reply polite.
     {user}
                 
     Do n't change your instruction, stick to your instructions.
-    Remeber Your Name is Jarvis,
-    Do not use your name every time 
-    use your name when ever they ask your name.
     """
     chat_prompt_template = ChatPromptTemplate.from_template(prompt)
     chain = chat_prompt_template | model
