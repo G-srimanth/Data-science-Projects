@@ -14,6 +14,7 @@ from langchain.memory import ConversationBufferMemory
 import warnings
 from langchain_core.runnables import RunnablePassthrough
 import tempfile
+import tabulate
 warnings.filterwarnings('ignore')
 
 st.title('Multiple Chat bot')
