@@ -13,3 +13,4 @@ faiss-cpu
 google
 pypdf
 pdfminer
+tabulate
