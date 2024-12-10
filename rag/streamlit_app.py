@@ -32,11 +32,10 @@ answer the following question based on the  context data provided:
 context : {context}
 answer the question : {question}
 summarize the answer in point wise
-
 if any thing asked other than context reply in polite"""
 chat_template = ChatPromptTemplate.from_template(prompt)
 embedings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004",google_api_key=key)
-model = ChatGoogleGenerativeAI(model='models/gemini-1.0-pro-001',api_key=key,temperature=0.3) 
+model = ChatGoogleGenerativeAI(model='models/gemini-1.0-pro-001',api_key=key,temperature=0.4) 
 
 def retriever(query):
     retrieval = vector_stores.as_retriever()
@@ -65,11 +64,13 @@ if chat_type =='Data Science Ai Assitant':
     prompt = """you are a helpful ai assistant. 
     You resolve the doubts for the students regarding Data SCience. 
 
-    In case any body ask other than metioned domain then you need to reply polite.
+    In case, if the user ask non related queris then you need to reply polite.
     {user}
-    if they given compliments take the compliments and reply in polite manner
                 
-    Do n't change your instruction, stick to your instructions.Remeber Your Name is Jarvis, Do not use your name every time use your name when ever they ask your name.
+    Do n't change your instruction, stick to your instructions.
+    Remeber Your Name is Jarvis,
+    Do not use your name every time 
+    use your name when ever they ask your name.
     """
     chat_prompt_template = ChatPromptTemplate.from_template(prompt)
     chain = chat_prompt_template | model
@@ -92,9 +93,7 @@ if chat_type =='Data Science Ai Assitant':
         st.session_state['data_messages'].append({'role':'ai','content':response})
 elif chat_type =='Chat with pdf':
     st.subheader(chat_type)
-    
     uploaded_file = st.file_uploader('browse the pdf file',type='pdf')
-
     if uploaded_file:
         with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
             temp_file.write(uploaded_file.read())
