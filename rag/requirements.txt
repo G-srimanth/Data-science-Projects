@@ -14,3 +14,4 @@ google
 pypdf
 pdfminer
 tabulate
+pandas
