@@ -127,7 +127,7 @@ elif chat_type =='Chat with csv':
             temp_file_path = temp_file.name
         df = pd.read_csv(temp_file_path)
         if st.sidebar.toggle("show the records"):
-            rows= st.sidebar.slider(min_value=4,max_value=df.shape[0])
+            rows= st.sidebar.slider("choose no.of records need to show",min_value=4,max_value=df.shape[0])
             st.dataframe(df.head(rows))
             
         agent = create_csv_agent(
