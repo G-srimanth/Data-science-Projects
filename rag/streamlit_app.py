@@ -1,5 +1,5 @@
 import streamlit as st
-import os
+import pandas as pd
 import google.generativeai as genai
 from langchain.vectorstores import FAISS
 from langchain.document_loaders import PyMuPDFLoader,WebBaseLoader
@@ -125,6 +125,10 @@ elif chat_type =='Chat with csv':
         with tempfile.NamedTemporaryFile(delete=False,suffix='.csv') as temp_file:
             temp_file.write(uploaded_file.read())
             temp_file_path = temp_file.name
+        df = pd.read_csv(temp_file_path)
+        if st.sidebar.toggle("show the records"):
+            rows= st.sidebar.slider(min_value=4,max_value=df.shape[0])
+            st.dataframe(df.head(rows))
             
         agent = create_csv_agent(
                 model,
