@@ -15,7 +15,7 @@ import warnings
 from langchain_core.runnables import RunnablePassthrough
 import tempfile
 import tabulate
-from streamlit_pdf_viewer import st_pdf
+from streamlit_pdf_viewer import pdf_viewer
 warnings.filterwarnings('ignore')
 
 st.title('Multiple Chat bot')
@@ -102,7 +102,7 @@ elif chat_type =='Chat with pdf':
         
         if st.sidebar.toggle("to view the pdf"):
             st.sidebar.subheader("pdf")
-            st_pdf(temp_file_path)
+            pdf_viewer(temp_file_path)
 
         loader = PyMuPDFLoader(temp_file_path)
 
