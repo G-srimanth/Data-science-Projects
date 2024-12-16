@@ -101,8 +101,8 @@ elif chat_type =='Chat with pdf':
             temp_file_path = temp_file.name
         
         if st.sidebar.toggle("to view the pdf"):
-            st.sidebar.subheader("pdf")
-            pdf_viewer(temp_file_path)
+            with st.sidebar:
+                pdf_viewer(temp_file_path)
 
         loader = PyMuPDFLoader(temp_file_path)
 
