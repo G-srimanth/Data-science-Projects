@@ -16,3 +16,4 @@ pdfminer
 tabulate
 pandas
 streamlit-pdf-viewer
+matplotlib
