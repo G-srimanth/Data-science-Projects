@@ -15,7 +15,6 @@ import warnings
 from langchain_core.runnables import RunnablePassthrough
 import tempfile
 import tabulate
-#import matplotlib.pyplot as plt
 from streamlit_pdf_viewer import pdf_viewer
 import re
 import matplotlib.pyplot as plt
@@ -25,7 +24,7 @@ st.title('Multiple Chat bot')
 #key = st.secrets()
 #genai.configure(api_key=key)
 key = st.secrets['google']
-#key = open('key.txt','r').read()
+key = open('key.txt','r').read()
 ai_bots = ['Data science Ai Assitant','chat with pdf','chat with csv','chat with url']
 history = 'data_messages pdf_messages csv_messages url_messages'.split()
 with st.sidebar:
@@ -137,7 +136,6 @@ elif type ==ai_bots[1]:
             storing_history(message_type=history[1],role='ai',content=response)
 elif type == ai_bots[2]:
     st.subheader(type)
-    st.session_state.plot = 0
     uploaded_file = st.file_uploader('Browse the file',type='csv')
     if uploaded_file:
         with tempfile.NamedTemporaryFile(delete=False,suffix='.csv') as temp_file:
@@ -148,25 +146,17 @@ elif type == ai_bots[2]:
             rows =st.sidebar.slider('choose no.of records need to show',min_value=4,max_value=df.shape[1])
             st.sidebar.dataframe(df.head(rows))
         agent = create_csv_agent(model,temp_file_path,prompt_template=prompt_template,allow_dangerous_code = True,handle_parsing_errors=True)
-        if st.toggle('generate plot'):
-            st.session_state.plot = 1
-            plot_query = st.chat_input('mention the column and plot')
-            if plot_query:
-                plot = agent.invoke(plot_query)
-                st.pyplot()
-        if st.session_state.plot ==0:
-            user = st.chat_input('queries related to csv file')
-
-            display_message(history[2])
-            if user:
-                st.chat_message('user').write(user)
-                storing_history(history[2],role='user',content=user)
-                try:
-                    response= agent.invoke(user)['output']
-                    st.chat_message('ai').write(response)
-                except Exception as e:
-                    response = 'unable to process the query'
-                storing_history(history[2],role='ai',content=response)
+        user = st.chat_input('queries related to csv file')
+        display_message(history[2])
+        if user:
+            st.chat_message('user').write(user)
+            storing_history(history[2],role='user',content=user)
+            try:
+                response= agent.invoke(user)['output']
+                st.chat_message('ai').write(response)
+            except Exception as e:
+                response = 'unable to process the query'
+            storing_history(history[2],role='ai',content=response)
             #print(response)
 else:
     URL = st.sidebar.text_input("Enter URL to query the webpage")
