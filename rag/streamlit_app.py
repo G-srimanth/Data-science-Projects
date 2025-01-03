@@ -24,7 +24,7 @@ st.title('Multiple Chat bot')
 #key = st.secrets()
 #genai.configure(api_key=key)
 key = st.secrets['google']
-key = open('key.txt','r').read()
+#key = open('key.txt','r').read()
 ai_bots = ['Data science Ai Assitant','chat with pdf','chat with csv','chat with url']
 history = 'data_messages pdf_messages csv_messages url_messages'.split()
 with st.sidebar:
