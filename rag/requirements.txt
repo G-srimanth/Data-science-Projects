@@ -1,6 +1,7 @@
 streamlit
 pymupdf
 langchain
+google-generativeai
 langchain-experimental
 numpy
 pandas
