@@ -44,7 +44,7 @@ In case ask any other than context, reply in polite
 prompt_template = ChatPromptTemplate.from_template(prompt)
    
 # gemini model
-model = ChatGoogleGenerativeAI(model='models/gemini-1.5-pro-001', api_key=key,temperature=0.4)
+model = ChatGoogleGenerativeAI(model='models/learnlm-1.5-pro-experimental', api_key=key,temperature=0.4)
 embeddings = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004",google_api_key=key)
 
 
