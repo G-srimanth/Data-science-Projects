@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Style for form and label/input alignment */
+        .form-group {
+
+            margin: 10px 0;
+        }
+
+        label {
+            margin-left: 120px;
+            margin-right: 5rem;
+            display: inline-block;
+            width: 150px;  /* Set a fixed width for labels */
+            text-align: right;  /* Align label text to the right */
+        }
+
+        input[type="text"] {
+            margin-top: 3px;
+            width: 200px;  /* Set a fixed width for input fields */
+            padding: 5px;
+        }
+
+        input[type="submit"] {
+            margin: 20px 330px;
+            padding: 10px 20px;
+            border-radius: 12%;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        h1{
+            text-align: center;
+            color: red;
+            text-decoration: underline limegreen;
+        }
+        .file-container{
+            margin-top: 130px;
+            text-align: center;
+        }
+
+        .form-container{
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+        }   
+    </style>
+</head>
+<body>
+    <h1><strong><i>Car insurance prediction</i></strong></h1>
+    <div class="form-container">  
+    <form action="/" method="POST" style="margin: 20px 30px;">
+        <div class="form-group">
+        {% for col in feature_names%}
+            <label for="{{col}}"><strong>{{col}}: </strong></label>
+            <input type="text" name = {{col}} placeholder="Enter {{col}}" id="{{col}}" required>
+            <br>
+        {%endfor%}
+    </div>
+    {% if message_type=="success" %}
+        <strong><i style="text-align: center;"><p style="color: green;"> {{message}}</p></i></strong>
+        {%elif message_type=='error'%} 
+           <i><p style="color: red; text-align: center;">{{message}}</p></i>
+    {%endif%}
+        <input type="submit" value="submit">
+    </form>
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <div class="file-container">
+            <input type="file" name="file" id="file143" accept=".csv" required>
+            {% if file_message_type =='error' %}
+            <p><strong><i style="color: red;">{{file_message}}</i></strong></p>
+            {%endif%}
+            {%if file_message_type == 'success'%}
+                <i style="color: green; text-align: center;"> {{file_message}} </i>
+            {%endif%}
+            <input type="submit" value="submit">
+        </div>
+    </form>  
+</div>
+</body>
+</html>
