@@ -1,0 +1,50 @@
+[4/28, 7:12 AM] srimanth: import os
+import cv2
+import numpy as np
+
+
+images_path='/media/srimanth/A86AB2196AB1E3EA/yolo/images.jpeg'
+image=cv2.imread(images_path)
+labels_path='/media/srimanth/A86AB2196AB1E3EA/yolo/images.txt'
+target_id=1
+h,w = image.shape[:-1]
+
+
+with open(labels_path,'r') as f:
+    data = f.readlines()
+
+for line in data:
+    cls_id = line.split()[0]
+    parts= line.split()[1:]
+    points=list(map(float,parts))
+    pts = (np.array(points, dtype=np.float32).reshape(-1, 2) * [w, h]).astype(np.int32).reshape(-1, 1, 2)
+    print(pts)
+
+    x,y,w1,h1 = cv2.boundingRect(pts)
+    print(x,y,w1,h1)
+    image_new=cv2.resize(image[y:y+h1,x:x+w1],dsize=(640,640))
+    cv2.imshow('object',image_new)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+[4/28, 7:25 AM] srimanth: import cv2
+import numpy as np
+
+# Assume
+image = cv2.imread('your_image.jpg')
+polygon = np.array([[500,400], [600,400], [600,500], [500,500]])
+
+# Step 1: Bounding box
+x, y, w, h = cv2.boundingRect(polygon)
+
+# Step 2: Crop image
+cropped_img = image[y:y+h, x:x+w]
+
+# Step 3: Adjust polygon
+new_polygon = polygon - np.array([x, y])
+
+# Step 4: Save
+cv2.imwrite('cropped.jpg', cropped_img)
+with open('cropped.txt', 'w') as f:
+    coords = new_polygon.flatten()
+    coords_str = ' '.join(map(str, coords))
+    f.write(f"{class_id} {coords_str}")
